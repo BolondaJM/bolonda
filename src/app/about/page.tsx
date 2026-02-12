@@ -50,7 +50,7 @@ export default function AboutPage() {
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
                   The Bolonda family story begins with two people who believed in the
-                  power of unity and hard work. Papa and Mama Bolonda built a home
+                  power of unity and hard work. Fidele and Brigitte Bolonda built a home
                   filled with warmth, wisdom, and unconditional love.
                 </p>
                 <p>
