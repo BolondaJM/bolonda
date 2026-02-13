@@ -93,6 +93,20 @@ export const familyMembers: FamilyMember[] = [
     bio: "The youngest member of the Bolonda family. Esther is a gifted content writer and skilled administrative assistant. Her attention to detail and way with words make her an invaluable asset to every project she touches.",
     image: "/images/family/member-6.jpg",
   },
+  {
+    id: "member-7",
+    name: "Fatuma Bolonda",
+    role: "Daughter-in-Law — Customer Support Agent",
+    bio: "A warm and professional customer support agent who joined the Bolonda family through marriage. Fatuma excels at resolving issues, building client relationships, and ensuring every customer feels heard and valued.",
+    image: "/images/family/member-7.jpg",
+  },
+  {
+    id: "member-8",
+    name: "Abigael Ngoy",
+    role: "Cousin — Assistant Community Health Promoter",
+    bio: "An Assistant Community Health Promoter dedicated to mobilisation and creating self-awareness on hygiene and good health practices. Abigael helps youth with sexual health education and collaborates with local authorities to drive community wellbeing forward.",
+    image: "/images/family/member-8.jpg",
+  },
 ];
 
 // ----- Services -----
@@ -208,6 +222,30 @@ export const services: Service[] = [
     icon: "clipboard",
     memberName: "Esther Bolonda",
     memberId: "member-6",
+  },
+  {
+    id: "service-15",
+    title: "Customer Support",
+    description: "Professional and empathetic customer support services. From handling inquiries to resolving complaints, ensuring every client receives timely and satisfying assistance.",
+    icon: "headset",
+    memberName: "Fatuma Bolonda",
+    memberId: "member-7",
+  },
+  {
+    id: "service-16",
+    title: "Community Health Promotion",
+    description: "Mobilisation and awareness campaigns on hygiene, good health practices, and youth sexual health education. Working hand-in-hand with local authorities for healthier communities.",
+    icon: "heart",
+    memberName: "Abigael Ngoy",
+    memberId: "member-8",
+  },
+  {
+    id: "service-17",
+    title: "Youth Health & Wellness Education",
+    description: "Targeted programmes helping young people understand sexual health, personal hygiene, and self-awareness. Empowering the next generation with knowledge and confidence.",
+    icon: "users",
+    memberName: "Abigael Ngoy",
+    memberId: "member-8",
   },
 ];
 
