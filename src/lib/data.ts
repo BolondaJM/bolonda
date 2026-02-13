@@ -68,8 +68,8 @@ export const familyMembers: FamilyMember[] = [
   {
     id: "member-3",
     name: "Reddy Bolonda",
-    role: "1st Son — Event Planner & Opportunities Finder",
-    bio: "A natural organizer and connector. Reddy specializes in event planning and management, and has a keen eye for discovering new opportunities. He turns visions into reality and brings people together.",
+    role: "1st Son — Projects Manager & Data Analyst",
+    bio: "A strategic organizer and analytical problem-solver. Reddy specializes in project management and data analysis, with a strong ability to translate complex data into actionable insights. He turns vision into execution, drives informed decision-making, and brings people together to deliver measurable results.",
     image: "/images/family/member-3.jpg",
   },
   {
