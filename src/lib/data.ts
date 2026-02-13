@@ -63,7 +63,7 @@ export const familyMembers: FamilyMember[] = [
     name: "Brigitte Bolonda",
     role: "Mother — Bakery & Cuisine",
     bio: "The heart and soul of the Bolonda family. A talented baker and culinary expert whose delicious creations bring joy to everyone around her. Her kitchen is where love is served on every plate.",
-    image: "/images/family/member-2.jpg",
+    image: "/images/family/member-2.png",
   },
   {
     id: "member-3",
