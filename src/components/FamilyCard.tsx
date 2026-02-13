@@ -19,13 +19,13 @@ export default function FamilyCard({ member }: FamilyCardProps) {
   return (
     <div className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
       {/* Profile Photo or Initials Fallback */}
-      <div className="relative h-48 bg-gradient-to-br from-amber-200 to-amber-400 flex items-center justify-center overflow-hidden">
+      <div className="relative h-64 bg-gradient-to-br from-amber-200 to-amber-400 flex items-center justify-center overflow-hidden">
         {member.image && !imgError ? (
           <Image
             src={member.image}
             alt={member.name}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             onError={() => setImgError(true)}
           />
