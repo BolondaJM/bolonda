@@ -3,6 +3,19 @@
 import Link from "next/link";
 import BPuzzleGame from "./BPuzzleGame";
 
+function AndroidLogo({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="M17.6 9.48 19.44 6.3a.66.66 0 0 0-.26-.85.65.65 0 0 0-.85.26l-1.89 3.27A10.9 10.9 0 0 0 12 8.06c-1.61 0-3.12.34-4.44.94L5.67 5.71a.65.65 0 0 0-.85-.26.66.66 0 0 0-.26.85l1.84 3.18C3.83 11.17 2.1 14.05 2 17.25h20c-.1-3.2-1.83-6.08-4.4-7.77ZM7.25 14.5a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Zm9.5 0a1.1 1.1 0 1 1 0-2.2 1.1 1.1 0 0 1 0 2.2Z" />
+    </svg>
+  );
+}
+
 export default function BPuzzlePost() {
   return (
     <>
@@ -42,8 +55,51 @@ export default function BPuzzlePost() {
         </div>
       </section>
 
+      <section className="bg-white py-10 sm:py-12">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <div className="rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-6 sm:p-8 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-widest text-amber-700">Android app</p>
+            <h2 className="mt-2 text-2xl font-bold text-gray-900">Download Bolonda&apos;s Puzzle</h2>
+            <p className="mt-3 leading-relaxed text-gray-600">
+              Prefer the phone app? Android users can download and install Bolonda&apos;s Puzzle
+              directly from this page. It is not on the Play Store yet, so your phone will treat it
+              as an unknown app.
+            </p>
+            <a
+              href="/bpuzzle/bolonda-puzzle.apk"
+              download="Bolondas-Puzzle.apk"
+              className="mt-6 inline-flex items-center justify-center gap-3 rounded-full bg-[#C45C26] px-5 py-2.5 pr-7 text-base font-semibold text-white shadow-md transition-colors hover:bg-[#a94b1d]"
+            >
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
+                <AndroidLogo className="h-6 w-6" />
+              </span>
+              Download for Android
+            </a>
+            <p className="mt-2 text-sm text-gray-500">APK file · about 140 MB</p>
+            <div className="mt-6 space-y-2 text-sm leading-relaxed text-gray-600">
+              <p className="font-semibold text-gray-800">Before you install</p>
+              <ol className="list-decimal space-y-2 pl-5">
+                <li>Download the app, then open the APK from your notification or Files app.</li>
+                <li>
+                  If Android says the source is unknown, go to Settings and allow this browser or
+                  Files app to install unknown apps.
+                </li>
+                <li>
+                  If Play Protect or another auto-block stops the install, tap <span className="font-medium text-gray-800">Install anyway</span> or
+                  turn off the block for this one-time install.
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-[#FFF6EE] py-10 sm:py-14">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-3 text-center text-2xl font-bold text-[#3D2914]">Play in the browser</h2>
+          <p className="mb-6 text-center text-gray-600">
+            No install needed. Start a puzzle right here.
+          </p>
           <div className="relative overflow-visible rounded-[28px] border border-[#E8D3C2] bg-[#FFF6EE] shadow-xl">
             <BPuzzleGame />
           </div>

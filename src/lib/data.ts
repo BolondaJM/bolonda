@@ -254,7 +254,7 @@ export const blogPosts: BlogPost[] = [
   {
     id: "bpuzzle",
     title: "Play Bolonda's Puzzle",
-    excerpt: "Piece together our family photos in a free web puzzle. Choose a difficulty, follow the stages, and see how well you know these memories.",
+    excerpt: "Download the Android app or play in the browser. Piece together our family photos, choose a difficulty, and follow the stages.",
     content: "We built Bolonda's Puzzle so anyone can sit with our family photos and put the pieces back together. Play it right here in this post.",
     author: "Jonathan Bolonda",
     date: "2026-09-18",
