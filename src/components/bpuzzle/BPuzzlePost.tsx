@@ -66,8 +66,7 @@ export default function BPuzzlePost() {
               as an unknown app.
             </p>
             <a
-              href="/bpuzzle/bolonda-puzzle.apk"
-              download="Bolondas-Puzzle.apk"
+              href="https://github.com/BolondaJM/bolonda-puzzle-app/releases/download/puzzle-app/bolonda-puzzle.apk"
               className="mt-6 inline-flex items-center justify-center gap-3 rounded-full bg-[#C45C26] px-5 py-2.5 pr-7 text-base font-semibold text-white shadow-md transition-colors hover:bg-[#a94b1d]"
             >
               <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
