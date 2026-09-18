@@ -4,9 +4,9 @@ import Link from "next/link";
 import BPuzzleGame from "./BPuzzleGame";
 
 const ANDROID_APK_URL =
-  "https://github.com/BolondaJM/bolonda-puzzle-app/releases/download/puzzle-app/bolonda-puzzle.apk";
+  "https://github.com/BolondaJM/bolonda/releases/download/puzzle-app/bolonda-puzzle.apk";
 const ANDROID_RELEASE_URL =
-  "https://github.com/BolondaJM/bolonda-puzzle-app/releases/tag/puzzle-app";
+  "https://github.com/BolondaJM/bolonda/releases/tag/puzzle-app";
 
 function AndroidLogo({ className }: { className?: string }) {
   return (
