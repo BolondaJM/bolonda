@@ -8,7 +8,7 @@ interface BlogPostPageProps {
 }
 
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({ id: post.id }));
+  return blogPosts.filter((post) => post.id !== "bpuzzle").map((post) => ({ id: post.id }));
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {

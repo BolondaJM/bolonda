@@ -8,13 +8,17 @@ interface BlogCardProps {
 export default function BlogCard({ post }: BlogCardProps) {
   return (
     <article className="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
-      {/* Image placeholder */}
-      <div className="h-48 bg-gradient-to-br from-gray-200 to-gray-300 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-        <span className="absolute top-3 left-3 px-3 py-1 text-xs font-semibold rounded-full bg-amber-500 text-white uppercase">
+      <div className="h-48 bg-gradient-to-br from-amber-100 to-orange-200 relative overflow-hidden">
+        {post.image ? (
+          <Link href={`/blog/${post.id}`} className="absolute inset-0">
+            <img src={post.image} alt="" className="h-full w-full object-cover" />
+          </Link>
+        ) : null}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
+        <span className="absolute top-3 left-3 px-3 py-1 text-xs font-semibold rounded-full bg-amber-500 text-white uppercase pointer-events-none">
           {post.category}
         </span>
-        <div className="absolute bottom-3 right-3 px-2 py-1 text-xs text-white bg-black/40 rounded-md backdrop-blur-sm">
+        <div className="absolute bottom-3 right-3 px-2 py-1 text-xs text-white bg-black/40 rounded-md backdrop-blur-sm pointer-events-none">
           {post.readTime}
         </div>
       </div>
