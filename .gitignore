@@ -20,6 +20,9 @@
 # production
 /build
 
+# local Android APK (hosted on GitHub Releases)
+*.apk
+
 # misc
 .DS_Store
 *.pem
