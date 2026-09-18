@@ -23,13 +23,12 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group" onClick={() => setMobileOpen(false)}>
-            <span className="text-2xl font-bold tracking-tight text-amber-700 group-hover:text-amber-600 transition-colors">
-              Bolonda
-            </span>
-            <span className="hidden sm:inline text-sm text-amber-500 font-medium">
-              Family
-            </span>
+          <Link href="/" className="flex items-center shrink-0" onClick={() => setMobileOpen(false)}>
+            <img
+              src="/images/bolonda-logo.png"
+              alt="Bolonda Family"
+              className="h-11 sm:h-12 w-auto object-contain"
+            />
           </Link>
 
           {/* Desktop Navigation */}

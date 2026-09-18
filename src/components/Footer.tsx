@@ -15,7 +15,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
-            <h3 className="text-xl font-bold text-amber-400 mb-3">Bolonda Family</h3>
+            <img
+              src="/images/bolonda-logo.png"
+              alt="Bolonda Family"
+              className="mb-3 h-10 w-auto max-w-[220px] object-contain rounded-md bg-white px-2 py-1"
+            />
             <p className="text-sm text-gray-400 leading-relaxed">
               United by love, strengthened by faith, and bound by shared values.
               Welcome to our family&apos;s digital home.

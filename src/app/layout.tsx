@@ -22,6 +22,10 @@ export const metadata: Metadata = {
   description:
     "Welcome to the Bolonda family website. Discover who we are, our experiences, blog articles, services, and family gallery.",
   keywords: ["Bolonda", "family", "services", "blog", "gallery", "experiences"],
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({
