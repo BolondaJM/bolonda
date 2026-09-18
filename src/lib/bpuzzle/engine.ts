@@ -172,32 +172,32 @@ export function savePreferences(prefs: PuzzlePreferences): void {
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
 }
 
-export async function cropPhotoToGrid(
+export interface PreparedPuzzleImage {
+  src: string;
+  width: number;
+  height: number;
+}
+
+export async function preparePuzzleImage(
   src: string,
-  columns: number,
-  rows: number,
-): Promise<string> {
+  maxSide = 1600,
+): Promise<PreparedPuzzleImage> {
   const image = await loadImage(src);
-  const targetAspect = columns / rows;
-  const sourceAspect = image.width / image.height;
-  let sx = 0;
-  let sy = 0;
-  let sw = image.width;
-  let sh = image.height;
-  if (sourceAspect > targetAspect) {
-    sw = image.height * targetAspect;
-    sx = (image.width - sw) / 2;
-  } else {
-    sh = image.width / targetAspect;
-    sy = (image.height - sh) / 2;
-  }
+  const longest = Math.max(image.width, image.height);
+  const scale = longest > maxSide ? maxSide / longest : 1;
+  const width = Math.max(1, Math.round(image.width * scale));
+  const height = Math.max(1, Math.round(image.height * scale));
   const canvas = document.createElement("canvas");
-  canvas.width = Math.max(1, Math.round(sw));
-  canvas.height = Math.max(1, Math.round(sh));
+  canvas.width = width;
+  canvas.height = height;
   const context = canvas.getContext("2d");
   if (!context) throw new Error("Unable to prepare this photo");
-  context.drawImage(image, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
-  return canvas.toDataURL("image/jpeg", 0.92);
+  context.drawImage(image, 0, 0, width, height);
+  return {
+    src: canvas.toDataURL("image/jpeg", 0.92),
+    width,
+    height,
+  };
 }
 
 function loadImage(src: string): Promise<HTMLImageElement> {

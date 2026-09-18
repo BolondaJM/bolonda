@@ -77,7 +77,7 @@ export default function BPuzzleGame() {
 
   if (!prefs) {
     return (
-      <div className="flex min-h-[640px] items-center justify-center text-[#53443B]">
+      <div className="flex h-full min-h-0 items-center justify-center text-[#53443B]">
         Loading Bolonda&apos;s Puzzle…
       </div>
     );
@@ -117,7 +117,7 @@ export default function BPuzzleGame() {
 
   if (screen.name === "settings") {
     return (
-      <div className="relative flex h-full min-h-[640px] flex-col">
+      <div className="relative flex h-full min-h-0 flex-col">
         <TopBar title="Settings" onBack={() => setScreen(screen.from)} />
         <div className="flex items-center justify-between px-4 py-4">
           <div className="flex items-center gap-3 text-[#3D2914]">
@@ -190,7 +190,7 @@ export default function BPuzzleGame() {
   if (screen.name === "stages") {
     const allComplete = stages.length > 0 && stages.every((stage) => isStageComplete(stage, completed));
     return (
-      <div className="relative flex h-full min-h-[640px] flex-col">
+      <div className="relative flex h-full min-h-0 flex-col">
         <TopBar title="Stages" onBack={() => setScreen({ name: "home" })} />
         <div className="flex-1 overflow-y-auto px-4 py-3">
           <p className="mb-4 text-sm text-[#53443B]">
@@ -223,7 +223,7 @@ export default function BPuzzleGame() {
     const stage = stageByNumber(screen.stageNumber);
     if (!stage) return null;
     return (
-      <div className="relative flex h-full min-h-[640px] flex-col">
+      <div className="relative flex h-full min-h-0 flex-col">
         <TopBar title={stage.name} onBack={() => setScreen({ name: "stages" })} />
         <div className="flex-1 overflow-y-auto px-4 py-3">
           <p className="mb-4 text-sm text-[#53443B]">
@@ -325,7 +325,7 @@ function HomeScreen({
   onSettings: () => void;
 }) {
   return (
-    <div className="flex min-h-[640px] flex-col px-6 py-4">
+    <div className="flex h-full min-h-0 flex-col px-6 py-4">
       <div className="flex justify-end">
         <button
           type="button"
@@ -390,7 +390,7 @@ function PieceCountPicker({
   useEffect(() => setCurrent(selected), [selected]);
 
   return (
-    <div className="flex flex-col px-6 py-6">
+    <div className="flex h-full min-h-0 flex-col overflow-y-auto px-6 py-6">
       <h2 className="text-center text-2xl font-bold text-[#3D2914]">{title}</h2>
       <p className="mt-3 text-center text-[#53443B]">{body}</p>
       <div className="mt-7 space-y-3">
@@ -547,7 +547,7 @@ function StageTransition({
   }, [onContinue]);
 
   return (
-    <div className="relative flex min-h-[640px] flex-col items-center justify-center px-8 text-center">
+    <div className="relative flex h-full min-h-0 flex-col items-center justify-center px-8 text-center">
       <p className="text-lg text-[#53443B]">You finished</p>
       <p className="mt-2 text-3xl font-semibold text-[#3D2914]">{completedStageName}</p>
       {reveal && (

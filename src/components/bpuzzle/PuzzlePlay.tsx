@@ -5,11 +5,12 @@ import type { PhotoAsset } from "@/lib/bpuzzle/catalog";
 import { stageName } from "@/lib/bpuzzle/catalog";
 import {
   cellUnderDrag,
-  cropPhotoToGrid,
   isSolved,
   playMoveSound,
+  preparePuzzleImage,
   shuffledBoard,
   swapTiles,
+  type PreparedPuzzleImage,
   type PuzzleBoard,
 } from "@/lib/bpuzzle/engine";
 
@@ -45,7 +46,7 @@ export default function PuzzlePlay({
   onSettings,
 }: PuzzlePlayProps) {
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
-  const [croppedSrc, setCroppedSrc] = useState<string | null>(null);
+  const [puzzleImage, setPuzzleImage] = useState<PreparedPuzzleImage | null>(null);
   const [board, setBoard] = useState<PuzzleBoard | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [moves, setMoves] = useState(0);
@@ -58,7 +59,7 @@ export default function PuzzlePlay({
   useEffect(() => {
     let cancelled = false;
     setStatus("loading");
-    setCroppedSrc(null);
+    setPuzzleImage(null);
     setBoard(null);
     setSelectedIndex(null);
     setMoves(0);
@@ -66,10 +67,10 @@ export default function PuzzlePlay({
     setShowCelebration(false);
 
     const nextBoard = shuffledBoard(pieceCount);
-    cropPhotoToGrid(photo.src, nextBoard.columns, nextBoard.rows)
-      .then((src) => {
+    preparePuzzleImage(photo.src)
+      .then((image) => {
         if (cancelled) return;
-        setCroppedSrc(src);
+        setPuzzleImage(image);
         setBoard(nextBoard);
         setStatus("ready");
       })
@@ -117,7 +118,7 @@ export default function PuzzlePlay({
     : `${stageName(photo.stageNumber)} · ${photo.imageNumber}/${photoCountInStage}`;
 
   return (
-    <div className="relative flex h-full min-h-[640px] flex-col">
+    <div className="relative flex h-full min-h-0 flex-col">
       <header className="flex items-center gap-2 px-2 py-2">
         <IconButton label="Back" onClick={onBack}>
           <BackIcon />
@@ -148,9 +149,9 @@ export default function PuzzlePlay({
             onClick={() => {
               setStatus("loading");
               const nextBoard = shuffledBoard(pieceCount);
-              cropPhotoToGrid(photo.src, nextBoard.columns, nextBoard.rows)
-                .then((src) => {
-                  setCroppedSrc(src);
+              preparePuzzleImage(photo.src)
+                .then((image) => {
+                  setPuzzleImage(image);
                   setBoard(nextBoard);
                   setStatus("ready");
                 })
@@ -166,15 +167,17 @@ export default function PuzzlePlay({
         </div>
       )}
 
-      {status === "ready" && board && croppedSrc && (
-        <div className="flex flex-1 flex-col items-center px-3 pb-4">
-          <p className="max-w-xl text-center text-sm text-[#53443B]">
+      {status === "ready" && board && puzzleImage && (
+        <div className="flex min-h-0 flex-1 flex-col items-center px-3 pb-4">
+          <p className="max-w-xl shrink-0 text-center text-sm text-[#53443B]">
             Tap two pieces to swap, or drag a piece and drop it on another to switch them
           </p>
-          <p className="mt-1 text-sm font-semibold text-[#3D2914]">Moves: {moves}</p>
+          <p className="mt-1 shrink-0 text-sm font-semibold text-[#3D2914]">Moves: {moves}</p>
           <PuzzleBoardView
             board={board}
-            imageSrc={croppedSrc}
+            imageSrc={puzzleImage.src}
+            imageWidth={puzzleImage.width}
+            imageHeight={puzzleImage.height}
             selectedIndex={selectedIndex}
             solved={solved}
             onSelect={selectOrSwap}
@@ -184,10 +187,14 @@ export default function PuzzlePlay({
         </div>
       )}
 
-      {showPreview && croppedSrc && (
+      {showPreview && puzzleImage && (
         <Modal onClose={() => setShowPreview(false)}>
           <p className="mb-3 text-center text-lg font-semibold text-[#3D2914]">Full photo preview</p>
-          <img src={croppedSrc} alt="Puzzle preview" className="w-full rounded-xl" />
+          <img
+            src={puzzleImage.src}
+            alt="Puzzle preview"
+            className="mx-auto max-h-[min(70vh,520px)] w-auto max-w-full rounded-xl object-contain"
+          />
           <button
             type="button"
             onClick={() => setShowPreview(false)}
@@ -198,9 +205,9 @@ export default function PuzzlePlay({
         </Modal>
       )}
 
-      {showCelebration && croppedSrc && (
+      {showCelebration && puzzleImage && (
         <WinDialog
-          preview={croppedSrc}
+          preview={puzzleImage.src}
           isRandom={isRandom}
           hasNext={hasNext}
           nextIsNewStage={nextIsNewStage}
@@ -217,6 +224,8 @@ export default function PuzzlePlay({
 function PuzzleBoardView({
   board,
   imageSrc,
+  imageWidth,
+  imageHeight,
   selectedIndex,
   solved,
   onSelect,
@@ -225,6 +234,8 @@ function PuzzleBoardView({
 }: {
   board: PuzzleBoard;
   imageSrc: string;
+  imageWidth: number;
+  imageHeight: number;
   selectedIndex: number | null;
   solved: boolean;
   onSelect: (index: number) => void;
@@ -297,13 +308,37 @@ function PuzzleBoardView({
     setDragOffset({ x: 0, y: 0 });
   }
 
+  const boxRef = useRef<HTMLDivElement>(null);
+  const [box, setBox] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const element = boxRef.current;
+    if (!element) return;
+    const observer = new ResizeObserver((entries) => {
+      const next = entries[0]?.contentRect;
+      if (!next) return;
+      setBox({ width: next.width, height: next.height });
+    });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  const aspect = imageWidth / imageHeight;
+  const fitted =
+    box.width > 0 && box.height > 0
+      ? box.width / box.height > aspect
+        ? { width: box.height * aspect, height: box.height }
+        : { width: box.width, height: box.width / aspect }
+      : { width: 0, height: 0 };
+
   return (
-    <div className="mt-3 flex w-full flex-1 items-center justify-center">
+    <div ref={boxRef} className="mt-3 flex min-h-0 w-full flex-1 items-center justify-center">
       <div
         ref={gridRef}
-        className="grid max-h-full w-full max-w-[min(100%,420px)] overflow-hidden rounded-xl"
+        className="grid overflow-hidden rounded-xl"
         style={{
-          aspectRatio: `${board.columns} / ${board.rows}`,
+          width: fitted.width || undefined,
+          height: fitted.height || undefined,
           gridTemplateColumns: `repeat(${board.columns}, minmax(0, 1fr))`,
           gap,
         }}
@@ -320,7 +355,7 @@ function PuzzleBoardView({
               onPointerMove={onPointerMove}
               onPointerUp={endDrag}
               onPointerCancel={endDrag}
-              className={`relative touch-none overflow-hidden rounded-sm bg-cover bg-no-repeat ${
+              className={`relative touch-none overflow-hidden rounded-sm bg-no-repeat ${
                 selectedIndex === index ? "ring-4 ring-[#7A5C2E]" : ""
               } ${dragging ? "z-20 shadow-xl" : "z-0"}`}
               style={{
@@ -358,7 +393,11 @@ function WinDialog({
     <div className="absolute inset-0 z-30 flex items-center justify-center bg-black/70 p-6">
       <FlashingStars />
       <div className="relative z-10 w-full max-w-md text-center">
-        <img src={preview} alt="Completed photo" className="w-full rounded-2xl shadow-2xl" />
+        <img
+          src={preview}
+          alt="Completed photo"
+          className="mx-auto max-h-[min(50vh,420px)] w-auto max-w-full rounded-2xl object-contain shadow-2xl"
+        />
         <p className="mt-5 text-3xl font-bold text-[#E8B86D]">Congratulations!</p>
         <p className="mt-2 text-white">You put this photo back together.</p>
         <div className="mt-6 space-y-2">

@@ -116,8 +116,10 @@ export default function BPuzzlePost() {
           <p className="mb-6 text-center text-gray-600">
             No install needed. Start a puzzle right here.
           </p>
-          <div className="relative overflow-visible rounded-[28px] border border-[#E8D3C2] bg-[#FFF6EE] shadow-xl">
-            <BPuzzleGame />
+          <div className="relative h-[min(85dvh,760px)] min-h-[520px] overflow-hidden rounded-[28px] border border-[#E8D3C2] bg-[#FFF6EE] shadow-xl">
+            <div className="h-full min-h-0">
+              <BPuzzleGame />
+            </div>
           </div>
           <p className="mt-4 text-center text-sm text-gray-500">
             A web version of Bolonda&apos;s Puzzle, built from the family photo game.
