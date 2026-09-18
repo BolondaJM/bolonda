@@ -3,6 +3,11 @@
 import Link from "next/link";
 import BPuzzleGame from "./BPuzzleGame";
 
+const ANDROID_APK_URL =
+  "https://github.com/BolondaJM/bolonda-puzzle-app/releases/download/puzzle-app/bolonda-puzzle.apk";
+const ANDROID_RELEASE_URL =
+  "https://github.com/BolondaJM/bolonda-puzzle-app/releases/tag/puzzle-app";
+
 function AndroidLogo({ className }: { className?: string }) {
   return (
     <svg
@@ -66,7 +71,9 @@ export default function BPuzzlePost() {
               as an unknown app.
             </p>
             <a
-              href="https://github.com/BolondaJM/bolonda-puzzle-app/releases/download/puzzle-app/bolonda-puzzle.apk"
+              href={ANDROID_APK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="mt-6 inline-flex items-center justify-center gap-3 rounded-full bg-[#C45C26] px-5 py-2.5 pr-7 text-base font-semibold text-white shadow-md transition-colors hover:bg-[#a94b1d]"
             >
               <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
@@ -74,7 +81,17 @@ export default function BPuzzlePost() {
               </span>
               Download for Android
             </a>
-            <p className="mt-2 text-sm text-gray-500">APK file · about 140 MB</p>
+            <p className="mt-2 text-sm text-gray-500">
+              APK file · about 140 MB ·{" "}
+              <a
+                href={ANDROID_RELEASE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-amber-700 underline underline-offset-2 hover:text-amber-800"
+              >
+                GitHub Release
+              </a>
+            </p>
             <div className="mt-6 space-y-2 text-sm leading-relaxed text-gray-600">
               <p className="font-semibold text-gray-800">Before you install</p>
               <ol className="list-decimal space-y-2 pl-5">
